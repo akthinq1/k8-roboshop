@@ -28,16 +28,17 @@ spec:
       project: roboshop
       tier: app
   template:
-    component: catalogue
-    project: roboshop
-    tier: app
-  spec:
-    containers:
-      - name: catalogue
-        image: aneelp/catalogue:v1
-        envFrom:
-          - configMapRef:
-              name: catalogue
+    metadata:
+      component: catalogue
+      project: roboshop
+      tier: app
+    spec:
+      containers:
+        - name: catalogue
+          image: aneelp/catalogue:v1
+          envFrom:
+            - configMapRef:
+                name: catalogue
 ---
 
 apiVersion: v1
