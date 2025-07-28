@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: rabbitmq
+  labels:
+    component: rabbitmq
+    project: roboshop
+    tier: database
+type: Opaque
+data:
+  RABBITMQ_DEFAULT_USER: "cm9ib3Nob3A="
+  RABBITMQ_DEFAULT_PASS: "cm9ib3Nob3AxMjM="
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reabbitmq
+  namespace: roboshop #if namespace is not mentioned then pod/deployment will excecute or run in default namespace
+  labels:
+    component: reabbitmq
+    project: roboshop
+    tier: database
+spec:
+  replicas: 1
+  # replica details
+  selector:
+    matchLabels:
+      component: reabbitmq
+      project: roboshop
+      tier: database
+
+    # create pod & details
+  template:
+    metadata:
+      labels:
+        component: reabbitmq
+        project: roboshop
+        tier: database
+
+    # container details
+    spec:
+      containers:
+        - name: reabbitmq
+          image: reabbitmq:3
+          envFrom: 
+            - secretRef:
+                name: rabbitmq
+---
+# create services
+apiVersion: v1
+kind: Service
+metadata:
+  name: reabbitmq
+  namespace: roboshop
+  labels:
+    component: reabbitmq
+    project: roboshop
+    tier: database
+spec:
+  selector:
+    component: reabbitmq
+    project: roboshop
+    tier: database
+  ports:
+  - protocol: TCP
+    port: 6379 # service port
+    targetPort: 6379 # container port
