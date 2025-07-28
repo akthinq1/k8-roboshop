@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+  labels:
+    component: mongodb
+    project: roboshop
+    tier: database
+spec:
+  replicas: 1
+  # replica details
+  selector:
+    matchLabels:
+      component: mongodb
+      project: roboshop
+      tier: database
+
+    # create pod & details
+  template:
+    metadata:
+      labels:
+        component: mongodb
+        project: roboshop
+        tier: database
+        
+    # container details
+    spec:
+      containers:
+        - name: mongodb
+          image: aneelp/mongodb:v1
