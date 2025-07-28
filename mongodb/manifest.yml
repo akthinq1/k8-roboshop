@@ -29,3 +29,24 @@ spec:
       containers:
         - name: mongodb
           image: aneelp/mongodb:v1
+
+---
+# create services
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+  labels:
+    project: roboshop
+    component: mongodb
+    tier: database
+spec:
+  selector: 
+    project: roboshop
+    component: mongodb
+    tier: database
+  
+  ports: 
+    - protocol: TCP
+      port: 27017 # service port
+      targetport: 27017 # container port
