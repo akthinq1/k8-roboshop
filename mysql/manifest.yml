@@ -45,7 +45,7 @@ spec:
           image: aneelp/mysql:v1
           envFrom:
             - secretRef:
-              name: mysql
+                name: mysql
 ---
 # create services
 apiVersion: v1
