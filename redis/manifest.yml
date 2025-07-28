@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongodb
+  name: redis
   namespace: roboshop #if namespace is not mentioned then pod/deployment will excecute or run in default namespace
   labels:
-    component: mongodb
+    component: redis
     project: roboshop
     tier: database
 spec:
@@ -12,7 +12,7 @@ spec:
   # replica details
   selector:
     matchLabels:
-      component: mongodb
+      component: redis
       project: roboshop
       tier: database
 
@@ -20,33 +20,33 @@ spec:
   template:
     metadata:
       labels:
-        component: mongodb
+        component: redis
         project: roboshop
         tier: database
 
     # container details
     spec:
       containers:
-        - name: mongodb
-          image: aneelp/mongodb:v1
+        - name: redis
+          image: redis7.0
 
 ---
 # create services
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongodb
+  name: redis
   namespace: roboshop
   labels:
-    component: mongodb
+    component: redis
     project: roboshop
     tier: database
 spec:
   selector:
-    component: mongodb
+    component: redis
     project: roboshop
     tier: database
   ports:
   - protocol: TCP
-    port: 27017 # service port
-    targetPort: 27017 # container port
+    port: 6379 # service port
+    targetPort: 6379 # container port
