@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongodb
+  namespace: roboshop #if namespace is not mentioned then pod/deployment will excecute or run in default namespace
   labels:
     component: mongodb
     project: roboshop
@@ -22,7 +23,7 @@ spec:
         component: mongodb
         project: roboshop
         tier: database
-        
+
     # container details
     spec:
       containers:
