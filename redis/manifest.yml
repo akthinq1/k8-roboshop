@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: redis
-          image: redis7.0
+          image: redis:7.0
 
 ---
 # create services
