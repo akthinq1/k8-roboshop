@@ -14,10 +14,10 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: reabbitmq
+  name: rabbitmq
   namespace: roboshop #if namespace is not mentioned then pod/deployment will excecute or run in default namespace
   labels:
-    component: reabbitmq
+    component: rabbitmq
     project: roboshop
     tier: database
 spec:
@@ -25,7 +25,7 @@ spec:
   # replica details
   selector:
     matchLabels:
-      component: reabbitmq
+      component: rabbitmq
       project: roboshop
       tier: database
 
@@ -33,15 +33,15 @@ spec:
   template:
     metadata:
       labels:
-        component: reabbitmq
+        component: rabbitmq
         project: roboshop
         tier: database
 
     # container details
     spec:
       containers:
-        - name: reabbitmq
-          image: reabbitmq:3
+        - name: rabbitmq
+          image: rabbitmq:3
           envFrom: 
             - secretRef:
                 name: rabbitmq
@@ -50,15 +50,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: reabbitmq
+  name: rabbitmq
   namespace: roboshop
   labels:
-    component: reabbitmq
+    component: rabbitmq
     project: roboshop
     tier: database
 spec:
   selector:
-    component: reabbitmq
+    component: rabbitmq
     project: roboshop
     tier: database
   ports:
